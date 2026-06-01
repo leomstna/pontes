@@ -104,14 +104,14 @@
 
     /* ── UTILS ──────────────────────────────────────────── */
     .container {
-      width: 200%;
+      width: 100%; /* AQUI ESTAVA 200% E REBENTAVA O MOBILE TODO */
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 40px;
     }
     @media (max-width: 768px) { 
       .container { padding: 0 20px; } 
-      :root { --footer-logo-size: 80px; } /* Logo menor no celular */
+      :root { --footer-logo-size: 80px; } /* Logo menor no telemóvel */
     }
 
     .section-label {
@@ -1137,9 +1137,9 @@
     /* Ajustes de Quebra de Layout (Stacking) */
     @media (max-width: 900px) {
       .nav-links { display: none; }
-      .menu-toggle { display: flex; } /* Revela o hambúrguer */
+      .menu-toggle { display: flex; } 
       
-      /* Empilha a seção de Clients */
+      /* Empilha a secção de Clientes */
       .clients-inner { flex-direction: column; gap: 40px; align-items: flex-start; }
       .clients-left { flex: 1 1 auto; width: 100%; }
       .client-list { width: 100%; }
@@ -1150,11 +1150,16 @@
     }
 
     @media (max-width: 768px) {
-      /* Ajuste da Hero no celular */
+      /* Ajuste da Hero no telemóvel */
       .hero-title { font-size: clamp(48px, 15vw, 80px); }
       .hero-bottom { flex-direction: column; align-items: flex-start; gap: 30px; }
       .hero-stats { flex-wrap: wrap; gap: 24px; }
       
+      /* Header e Grelhas */
+      .nav-cta { display: none; } /* Esconde o botão "Get In Touch" para a logo e o menu respirarem */
+      .projects-gallery { grid-template-columns: 1fr !important; gap: 10px; } /* Projetos em 1 coluna */
+      .about-programs { grid-template-columns: 1fr; } /* Programas em 1 coluna */
+
       /* Empilha os Contatos do Footer */
       .footer-contacts { flex-direction: column; gap: 20px; border: none; margin-bottom: 40px; }
       .contact-block { border-right: none; border: 1px solid var(--border); padding: 30px 20px; }
