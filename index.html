@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#080808" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Pontes | Graphic Sports Designer</title>
   <meta name="description" content="Portfólio de Pontes, agência pessoal focada em design esportivo, animações, edição de vídeo e merchandising." />
   <link rel="icon" href="data:,">
@@ -57,6 +60,11 @@
       overflow-x: hidden;
       cursor: none;
     }
+    @media (hover: none) and (pointer: coarse) {
+      body { cursor: auto; }
+      #cursor, #cursor-ring { display: none !important; }
+      a, button, .svc-row, .project-thumb, .circular-gallery { cursor: pointer; }
+    }
 
     /* ── CUSTOM CURSOR ──────────────────────────────────── */
     #cursor {
@@ -104,14 +112,14 @@
 
     /* ── UTILS ──────────────────────────────────────────── */
     .container {
-      width: 200%;
+      width: 100%;
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 40px;
     }
     @media (max-width: 768px) { 
-      .container { padding: 0 20px; } 
-      :root { --footer-logo-size: 80px; } /* Logo menor no celular */
+      .container { padding: 0 18px; } 
+      :root { --footer-logo-size: 80px; }
     }
 
     .section-label {
@@ -150,6 +158,10 @@
       backdrop-filter: blur(16px);
       padding: 16px 40px;
       border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 768px) {
+      #nav { padding: 16px 18px; }
+      #nav.scrolled { padding: 12px 18px; }
     }
     .nav-logo {
       font-family: var(--font-display);
@@ -210,14 +222,118 @@
       .nav-links { display: none; }
     }
 
+    /* ── HAMBURGER MENU ─────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px; height: 36px;
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+      z-index: 1100;
+      position: relative;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 100%; height: 1.5px;
+      background: var(--white);
+      transition: transform 0.35s var(--ease-out-expo), opacity 0.2s, width 0.35s var(--ease-out-expo);
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      .nav-hamburger { display: flex; }
+      .nav-cta { display: none; }
+    }
+
+    /* ── MOBILE NAV DRAWER ──────────────────────────────── */
+    #mobile-nav-drawer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1050;
+      background: rgba(8,8,8,0.97);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease-out-expo);
+    }
+    #mobile-nav-drawer.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    @media (max-width: 900px) {
+      #mobile-nav-drawer { display: flex; }
+    }
+    .mobile-nav-link {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 12vw, 72px);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      line-height: 1.1;
+      padding: 8px 0;
+      transition: color 0.2s;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: color 0.2s, transform 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo);
+    }
+    #mobile-nav-drawer.visible .mobile-nav-link {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    #mobile-nav-drawer.visible .mobile-nav-link:nth-child(1) { transition-delay: 0.05s; }
+    #mobile-nav-drawer.visible .mobile-nav-link:nth-child(2) { transition-delay: 0.10s; }
+    #mobile-nav-drawer.visible .mobile-nav-link:nth-child(3) { transition-delay: 0.15s; }
+    #mobile-nav-drawer.visible .mobile-nav-link:nth-child(4) { transition-delay: 0.20s; }
+    #mobile-nav-drawer.visible .mobile-nav-link:nth-child(5) { transition-delay: 0.25s; }
+    .mobile-nav-link:hover, .mobile-nav-link:active { color: var(--orange); }
+    .mobile-nav-cta {
+      margin-top: 36px;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--bg);
+      background: var(--orange);
+      border: none;
+      padding: 14px 32px;
+      text-decoration: none;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: color 0.2s, background 0.2s, transform 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo);
+    }
+    #mobile-nav-drawer.visible .mobile-nav-cta {
+      transform: translateY(0);
+      opacity: 1;
+      transition-delay: 0.30s;
+    }
+
     /* ── HERO ───────────────────────────────────────────── */
     #hero {
       position: relative;
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       align-items: flex-end;
       overflow: hidden;
       padding-bottom: 80px;
+    }
+    @media (max-width: 768px) {
+      #hero { padding-bottom: 48px; align-items: center; padding-top: 100px; min-height: 100svh; }
     }
 
     .hero-bg {
@@ -252,12 +368,15 @@
       right: 5%;
       transform: translateY(-50%);
       font-family: var(--font-display);
-      font-size: clamp(180px, 22vw, 320px);
+      font-size: clamp(120px, 22vw, 320px);
       line-height: 1;
       color: transparent;
       -webkit-text-stroke: 1px rgba(255,60,0,0.08);
       user-select: none;
       z-index: 1;
+    }
+    @media (max-width: 768px) {
+      .hero-number { right: -5%; font-size: 160px; -webkit-text-stroke: 1px rgba(255,60,0,0.05); }
     }
 
     .hero-content {
@@ -301,6 +420,9 @@
       flex-wrap: wrap;
       gap: 32px;
     }
+    @media (max-width: 768px) {
+      .hero-bottom { gap: 20px; flex-direction: column; align-items: flex-start; }
+    }
     .hero-desc {
       font-family: var(--font-ui);
       font-size: 14px;
@@ -335,6 +457,11 @@
     .hero-stats {
       display: flex;
       gap: 48px;
+    }
+    @media (max-width: 768px) {
+      .hero-stats { gap: 28px; }
+      .hero-stat-num { font-size: 32px; }
+      .hero-scroll { display: none; }
     }
     .hero-stat-num {
       font-family: var(--font-display);
@@ -417,6 +544,9 @@
       padding: 140px 0 0;
       position: relative;
     }
+    @media (max-width: 768px) {
+      #services { padding: 72px 0 0; }
+    }
 
     .section-header {
       display: flex;
@@ -425,6 +555,10 @@
       margin-bottom: 64px;
       flex-wrap: wrap;
       gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .section-header { margin-bottom: 36px; gap: 12px; }
+      .section-header > p { display: none; }
     }
 
     .section-title {
@@ -453,6 +587,16 @@
       overflow: hidden;
       cursor: none;
       text-decoration: none;
+    }
+    @media (max-width: 700px) {
+      .svc-row { grid-template-columns: 44px 1fr; gap: 0 14px; padding: 24px 0; cursor: pointer; }
+      .svc-arrow { display: none; }
+      .svc-ghost { display: none; }
+      .svc-name { font-size: clamp(32px, 9vw, 56px); }
+    }
+    /* Disable hover fill on touch to avoid sticky states */
+    @media (hover: none) {
+      .svc-row::before { display: none; }
     }
 
     .svc-row::before {
@@ -568,11 +712,7 @@
     }
     .svc-brazil-flag { font-size: 28px; }
 
-    @media (max-width: 700px) {
-      .svc-row { grid-template-columns: 48px 1fr; gap: 0 16px; }
-      .svc-arrow { display: none; }
-      .svc-ghost { display: none; }
-    }
+    /* svc mobile handled above */
 
     /* ── CLIENTS ────────────────────────────────────────── */
     #clients {
@@ -587,6 +727,9 @@
       height: 1px;
       background: linear-gradient(to right, transparent, var(--orange), transparent);
     }
+    @media (max-width: 768px) {
+      #clients { padding: 60px 0; }
+    }
 
     .clients-inner {
       display: flex;
@@ -595,7 +738,12 @@
       flex-wrap: wrap;
     }
     .clients-left { flex: 0 0 340px; }
-    .clients-right { flex: 1; }
+    .clients-right { flex: 1; min-width: 0; }
+    @media (max-width: 900px) {
+      .clients-inner { gap: 32px; }
+      .clients-left { flex: 1 1 100%; }
+      .clients-right { flex: 1 1 100%; }
+    }
 
     .clients-title {
       font-family: var(--font-display);
@@ -627,6 +775,11 @@
     .client-item:hover {
       background: var(--bg-3);
       padding-left: 44px;
+    }
+    @media (max-width: 768px) {
+      .client-item { padding: 20px 20px; }
+      .client-item:hover { padding-left: 20px; }
+      .client-name { font-size: 22px; }
     }
 
     .client-name {
@@ -664,6 +817,9 @@
     #projects {
       padding: 140px 0 100px;
     }
+    @media (max-width: 768px) {
+      #projects { padding: 72px 0 60px; }
+    }
 
     .video-wrapper {
       position: relative;
@@ -673,6 +829,9 @@
       margin-bottom: 80px;
       overflow: hidden;
       border: 1px solid var(--border);
+    }
+    @media (max-width: 768px) {
+      .video-wrapper { margin-bottom: 24px; }
     }
     .video-wrapper::before {
       content: '';
@@ -697,7 +856,7 @@
       gap: 2px;
     }
     @media (max-width: 1024px) { .projects-gallery { grid-template-columns: repeat(3,1fr); } }
-    @media (max-width: 700px)  { .projects-gallery { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 700px)  { .projects-gallery { grid-template-columns: repeat(2,1fr); gap: 2px; } }
 
     .project-thumb {
       position: relative;
@@ -705,6 +864,11 @@
       background: var(--surface);
       overflow: hidden;
       cursor: none;
+    }
+    @media (hover: none) {
+      .project-thumb { cursor: pointer; }
+      /* Always show labels on touch (no hover) */
+      .project-label { transform: translateY(0); }
     }
 
     .project-thumb::before {
@@ -792,6 +956,9 @@
       padding: 0 0 100px 0;
       position: relative;
     }
+    @media (max-width: 768px) {
+      #shorts { padding: 0 0 60px 0; }
+    }
     
     .gallery-wrapper {
       width: 100vw;
@@ -811,7 +978,8 @@
       .gallery-wrapper { height: 55vh; min-height: 400px; }
     }
     @media (max-width: 768px) {
-      .gallery-wrapper { height: 60vh; min-height: 350px; }
+      .gallery-wrapper { height: 65vh; min-height: 380px; }
+      .circular-gallery { cursor: default; touch-action: pan-x; }
     }
 
     /* ── ABOUT ──────────────────────────────────────────── */
@@ -820,6 +988,9 @@
       background: var(--bg-2);
       position: relative;
       overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      #about { padding: 72px 0; }
     }
     #about::after {
       content: 'PONTES';
@@ -843,7 +1014,8 @@
       align-items: start;
     }
     @media (max-width: 900px) {
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-left img { width: 100% !important; height: auto !important; max-height: 400px; object-fit: cover; }
     }
 
     .about-left { position: relative; z-index: 1; }
@@ -977,6 +1149,9 @@
       position: relative;
       overflow: hidden;
     }
+    @media (max-width: 768px) {
+      #footer { padding: 60px 0 32px; }
+    }
     #footer::before {
       content: '';
       position: absolute;
@@ -989,16 +1164,19 @@
     .footer-main-logo {
       margin-bottom: 80px;
       display: flex;
-      justify-content: center; /* Centraliza a imagem horizontalmente */
+      justify-content: center;
       align-items: center;
       width: 100%;
     }
     .footer-main-logo img {
-      height: var(--footer-logo-size); /* Tamanho puxado da variável no :root */
+      height: var(--footer-logo-size);
       width: auto;
       max-width: 100%;
       object-fit: contain;
       display: block;
+    }
+    @media (max-width: 768px) {
+      .footer-main-logo { margin-bottom: 36px; }
     }
 
     .footer-contacts {
@@ -1007,6 +1185,9 @@
       flex-wrap: wrap;
       border: 1px solid var(--border);
       margin-bottom: 80px;
+    }
+    @media (max-width: 768px) {
+      .footer-contacts { flex-direction: column; margin-bottom: 40px; }
     }
 
     /* Move a div do Based in Brazil para cima da lista de contatos */
@@ -1024,6 +1205,10 @@
     }
     .contact-block:last-child { border-right: none; }
     .contact-block:hover { background: var(--bg-3); }
+    @media (max-width: 768px) {
+      .contact-block { flex: 1 1 100%; padding: 24px 20px; border-right: none; border-bottom: 1px solid var(--border); }
+      .contact-block:last-child { border-bottom: none; }
+    }
 
     .contact-platform {
       font-family: var(--font-ui);
@@ -1103,6 +1288,23 @@
       text-transform: uppercase;
       color: var(--muted);
     }
+    /* ── SAFE AREA (notch / home bar) ───────────────────── */
+    @supports (padding-bottom: env(safe-area-inset-bottom)) {
+      #footer { padding-bottom: calc(48px + env(safe-area-inset-bottom)); }
+      #nav { padding-left: max(18px, env(safe-area-inset-left)); padding-right: max(18px, env(safe-area-inset-right)); }
+    }
+
+    /* ── ABOUT PROGRAMS MOBILE ──────────────────────────── */
+    @media (max-width: 480px) {
+      .about-programs { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .program-item { padding: 10px 12px; }
+      .program-name { font-size: 11px; }
+    }
+
+    /* ── TICKER MOBILE ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      .ticker-item { font-size: 11px; padding: 0 24px; gap: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -1127,7 +1329,19 @@
       <li><a href="#about">About</a></li>
     </ul>
     <a href="mailto:pontes.design001@gmail.com" class="nav-cta">Get In Touch</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div id="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation">
+    <a href="#services" class="mobile-nav-link">Services</a>
+    <a href="#clients"  class="mobile-nav-link">Clients</a>
+    <a href="#projects" class="mobile-nav-link">Projects</a>
+    <a href="#about"    class="mobile-nav-link">About</a>
+    <a href="mailto:pontes.design001@gmail.com" class="mobile-nav-cta">Get In Touch</a>
+  </div>
 
   <section id="hero">
     <div class="hero-bg"></div>
@@ -1466,37 +1680,68 @@
 
   <script>
     /* ── CURSOR ─────────────────────────────────────────── */
+    const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     const cursor     = document.getElementById('cursor');
     const cursorRing = document.getElementById('cursor-ring');
     let mx = 0, my = 0, rx = 0, ry = 0;
 
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    if (!isTouchDevice) {
+      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-    function animateCursor() {
-      cursor.style.left     = mx + 'px';
-      cursor.style.top      = my + 'px';
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      cursorRing.style.left = rx + 'px';
-      cursorRing.style.top  = ry + 'px';
-      requestAnimationFrame(animateCursor);
+      function animateCursor() {
+        cursor.style.left     = mx + 'px';
+        cursor.style.top      = my + 'px';
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        cursorRing.style.left = rx + 'px';
+        cursorRing.style.top  = ry + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      document.querySelectorAll('a, button, .svc-row, .project-thumb, .circular-gallery').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width      = '6px';
+          cursor.style.height     = '6px';
+          cursorRing.style.width  = '60px';
+          cursorRing.style.height = '60px';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width      = '12px';
+          cursor.style.height     = '12px';
+          cursorRing.style.width  = '40px';
+          cursorRing.style.height = '40px';
+        });
+      });
     }
-    animateCursor();
 
-    document.querySelectorAll('a, button, .svc-row, .project-thumb, .circular-gallery').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width      = '6px';
-        cursor.style.height     = '6px';
-        cursorRing.style.width  = '60px';
-        cursorRing.style.height = '60px';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width      = '12px';
-        cursor.style.height     = '12px';
-        cursorRing.style.width  = '40px';
-        cursorRing.style.height = '40px';
-      });
+    /* ── HAMBURGER MENU ─────────────────────────────────── */
+    const hamburger  = document.getElementById('navHamburger');
+    const mobileDrawer = document.getElementById('mobile-nav-drawer');
+    let drawerOpen = false;
+
+    function openDrawer() {
+      drawerOpen = true;
+      mobileDrawer.classList.add('visible');
+      hamburger.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      drawerOpen = false;
+      mobileDrawer.classList.remove('visible');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', () => drawerOpen ? closeDrawer() : openDrawer());
+
+    mobileDrawer.querySelectorAll('.mobile-nav-link, .mobile-nav-cta').forEach(link => {
+      link.addEventListener('click', closeDrawer);
     });
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawerOpen) closeDrawer(); });
 
     /* ── NAV SCROLL STATE ───────────────────────────────── */
     const nav = document.getElementById('nav');
