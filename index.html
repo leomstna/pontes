@@ -104,7 +104,7 @@
 
     /* ── UTILS ──────────────────────────────────────────── */
     .container {
-      width: 100%; /* AQUI ESTAVA 200% E REBENTAVA O MOBILE TODO */
+      width: 100%; /* Corrigido de 200% para 100% */
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 40px;
@@ -1156,13 +1156,13 @@
       .hero-stats { flex-wrap: wrap; gap: 24px; }
       
       /* Header e Grelhas */
-      .nav-cta { display: none; } /* Esconde o botão "Get In Touch" para a logo e o menu respirarem */
+      .nav-cta { display: none; } /* Esconde o botão para a logo respirar */
       .projects-gallery { grid-template-columns: 1fr !important; gap: 10px; } /* Projetos em 1 coluna */
       .about-programs { grid-template-columns: 1fr; } /* Programas em 1 coluna */
 
-      /* Empilha os Contatos do Footer e deixa mais compacto */
+      /* Empilha os Contactos do Footer e deixa mais compacto */
       .footer-contacts { flex-direction: column; gap: 12px; border: none; margin-bottom: 40px; }
-      .contact-block { border-right: none; border: 1px solid var(--border); padding: 20px 16px; } /* Espaço interno reduzido */
+      .contact-block { border-right: none; border: 1px solid var(--border); padding: 20px 16px; }
     }
   </style>
 </head>
